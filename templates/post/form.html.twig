@@ -6,9 +6,9 @@
      {#{form(form)}#}
 
 {# 2eme façon : affichage partiel du formulaire = input par input #}
-    {{form_start(form)}}      {#<form class="" action="" method="" >#}
-
-    {{form_row(form.title)}} {#<form class="" action="" method="" >#}
+    {{form_start(form, {'attr':{novalidate:'novalidate'}})}}{#<form class="" action="" method="" >#}
+    {# form_row représente votre input #}
+    {{form_row(form.title)}} 
     {{form_row(form.content)}}
     {{form_row(form.photo)}}      
       <button type='submit'>Publier</button>
