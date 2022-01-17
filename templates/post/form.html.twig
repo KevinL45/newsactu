@@ -10,8 +10,13 @@
     {# form_row représente votre input #}
     {{form_row(form.title)}} 
     {{form_row(form.content)}}
-    {{form_row(form.photo)}}      
-      <button type='submit'>Publier</button>
+    {{form_row(form.photo)},[
+        'labet'=>'Publier',
+        'attr' =>[
+            'class'=>'d-block col-2 mx-auto btn btn-warning'
+        ]
+    ]} 
+     
     {{form_end(form)}}      {#</form>#}
 
 
