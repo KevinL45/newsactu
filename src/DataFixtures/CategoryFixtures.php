@@ -15,6 +15,8 @@ class CategoryFixtures extends Fixture
     {
         $this->sluggerInterface = $sluggerInterface;
     }
+    # Cette fonction load() est exécutée en ligne de commande avec : php bin/console doctrine:fixture:load --append 
+    # => le drapeau --append permet de ne pas purger la BDD. Sinon vous aurez (en exécutant la cl) une question pour continuer ou non.
     public function load(ObjectManager $manager): void
     {
         $categories = ['Politique','Cinéma','Economie','Environement','Sport','Santé'];
