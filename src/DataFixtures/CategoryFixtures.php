@@ -24,9 +24,12 @@ class CategoryFixtures extends Fixture
 
             $category->setName($cat);
             $category->setAlias($this->sluggerInterface->slug($cat));
+            # Executation de la requête
+            $manager->persist($category);
 
         }
-
+        # La méthode flush() n'est pas dans la boucle pour une raison :
+        # => cette méthode "vide" l'objet $manager (c'est un container)
         $manager->flush();
     }
 }
