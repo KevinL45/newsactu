@@ -18,23 +18,24 @@ class PostType extends AbstractType
         $builder
             ->add('title',TextType::class,[
                 'label' => 'Titre de vos article',
-                'require'
+                'required'=> true
             ])
             //->add('alias')
             ->add('content',TextareaType::class,[
                 'label' => false,
-                'require',
+                'required'=> true,
                 'attr' => [
                     'placeholder' => 'Ici le contenu de l\'article'
                 ]
             ])
             ->add('photo', FileType::class,[
-                'label' => 'Photo de l\'article'
+                'label' => 'Photo de l\'article',
+                'data_class' => null
             ])
             ->add('submit', SubmitType::class,[
                 'label' => 'Publier',
                 'attr'=>[
-                    'class'=>''
+                    'class'=>'d-block col-2 mx-auto btn btn-warning'
                 ]
             ])
         ;
@@ -45,6 +46,7 @@ class PostType extends AbstractType
         $resolver->setDefaults([
             # Cette paire permet de représenter l'entité Post pour le FormBuilder.
             'data_class' => Post::class,
+            'allow_file_upload' => true,
         ]);
     }
 }
