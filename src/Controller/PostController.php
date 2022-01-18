@@ -76,13 +76,12 @@ class PostController extends AbstractController
     }
     /**
     * @Route("/admin/voir/{cat_alias}/{post_alias}_{id}", name="show_post", methods={"GET"})
-    * @ParamConverter("post", options={"mapping": {"post" : "alias"} })
     * @param  Post $post
     * @return Response
     */
     public function showPost(Post $post)
     {
-        return $this->render('default/show.html.twig',[
+        return $this->render('post/show.html.twig',[
             'post' => $post
         ]);
     }
