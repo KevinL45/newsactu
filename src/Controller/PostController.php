@@ -34,6 +34,8 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post)
         ->handleRequest($request);
 
+        
+
 
         if($form->isSubmitted() && $form->isValid()){
             $post->setAlias($this->sluggerInterface->slug($form->get('title')->getData()));
@@ -70,5 +72,10 @@ class PostController extends AbstractController
         return $this->render('post/form.html.twig',[
             'form' => $form->createView()
         ]);
+    }
+
+    public function show ($id)
+    {
+        
     }
 }

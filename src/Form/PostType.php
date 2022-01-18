@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Form;
 
 use App\Entity\Category;
@@ -21,80 +20,79 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title',TextType::class,[
-                'label' => 'Titre de l\'article',
-                'required'=> true,
+            ->add('title', TextType::class, [
+                'label' => 'Titre de votre article',
+                'required' => true,
                 'attr' => [
-                    'form' => 'form-control'
+                    'class' => 'form-control',
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Ce champs ne peut être vide'
+                        'message' => 'Ce champ ne peut être vide'
                     ]),
                     new Length([
                         'min' => 3,
                         'max' => 255,
-                        'minMessage' => 'Le nombre de caractères minimal est {{ limite }} (votre titre : {{value}})',
-                        'maxMessage' => 'Le nombre de caractères maximum est {{ limite }} (votre titre : {{value}})',
-
+                        'minMessage' => 'Le nombre de caractères minimal est {{ limit }} (votre titre {{ value }})',
+                        'maxMessage' => 'Le nombre de caractères maximal est {{ limit }} (votre titre {{ value }})'
                     ])
-                ]
+                ],
             ])
-            ->add('subtitle',TextType::class,[
+            ->add('subtitle', TextType::class, [
                 'label' => 'Sous-titre de l\'article',
-                'required'=> true,
+                'required' => true,
                 'attr' => [
-                    'form' => 'form-control'
+                    'class' => 'form-control',
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Ce champs ne peut être vide'
+                        'message' => 'Ce champ ne peut être vide'
                     ]),
                     new Length([
                         'min' => 3,
                         'max' => 255,
-                        'minMessage' => 'Le nombre de caractères minimal est {{ limite }} (votre sous-titre : {{value}})',
-                        'maxMessage' => 'Le nombre de caractères maximum est {{ limite }} (votre titre-titre : {{value}})',
-
+                        'minMessage' => 'Le nombre de caractères minimal est {{ limit }} (votre titre {{ value }})',
+                        'maxMessage' => 'Le nombre de caractères maximal est {{ limit }} (votre titre {{ value }})'
                     ])
                 ]
             ])
-            //->add('alias')
-            ->add('content',TextareaType::class,[
+            ->add('content', TextareaType::class, [
                 'label' => false,
-                'required'=> true,
                 'attr' => [
                     'placeholder' => 'Ici le contenu de l\'article',
-                    'form' => 'form-control'
+                    'class' => 'form-control',
                 ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Ce champs ne peut être vide'
-                    ])
-                ]
+//                'constraints' => [
+//                    new NotBlank([
+//                        'message' => 'Ce champ ne peut être vide'
+//                    ])
+//                ]
             ])
-            ->add('category', EntityType::class,[
+            ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'label' => 'Catégorie'
+                'label' => 'Choisissez une catégorie',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
-            ->add('photo', FileType::class,[
+            ->add('photo', FileType::class, [
                 'label' => 'Photo de l\'article',
                 'data_class' => null,
                 'attr' => [
-                    'form' => 'form-control'
+                    'class' => 'form-control',
                 ],
                 'constraints' => [
                     new Image([
-                        'mimeTypes' => ['image/jpeg','image/png'],
-                        'mimeTypesMessage' => 'Les types de photo autorisés sont : jpeg ou png'
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Les types de photo autorisées sont : .jpeg et .png'
                     ])
-                ]
+                ],
             ])
-            ->add('submit', SubmitType::class,[
+            ->add('submit', SubmitType::class, [
                 'label' => 'Publier',
-                'attr'=>[
-                    'class'=>'d-block col-2 mx-auto btn btn-warning'
+                'attr' => [
+                    'class' => 'd-block col-2 mx-auto btn btn-warning'
                 ]
             ])
         ;
@@ -109,3 +107,4 @@ class PostType extends AbstractType
         ]);
     }
 }
+?>
