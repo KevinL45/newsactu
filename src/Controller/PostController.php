@@ -14,7 +14,7 @@ class PostController extends AbstractController
 {
 
     /**
-     * @Route("/admin/creer-un-article", name="post_create_post", methods={"GET"})
+     * @Route("/admin/creer-un-article", name="post_create_post", methods={"GET|POST"})
      * @param Request $request
      * @param  EntityManagerInterface $entityManager
      * @return Response
@@ -25,6 +25,12 @@ class PostController extends AbstractController
 
         $form = $this->createForm(PostType::class, $post)
         ->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            # La méthode getData()vous permet de récupérer les valeurs form et de les passer à l'objet $post
+            # => En faite on "hydrate" notre objet Post des la ligne 26, donc pas nécceassaire de getData()ici
+            //$post = $form->getData();
+        }
 
         return $this->render('post/form.html.twig',[
             'form' => $form->createView()
