@@ -13,9 +13,9 @@ class DefaultController extends AbstractController
      * @Route("/", name="default_home", methods={"GET"})
      */
     public function home(){
-        $posts = $this->entityManager->getRepository(Post::class);
-        return $this->render('default/home.html.twig',[
+        //$posts = $this->entityManager->getRepository(Post::class);
+        return $this->render('default/home.html.twig'/*,[
             'posts' => $posts
-        ]);
+        ]*/);
     }
 }
