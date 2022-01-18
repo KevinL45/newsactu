@@ -1,0 +1,15 @@
+{% for label, messages in app.flashes %}
+    {% for messages in message %}
+        <div class="alert alert -{{ label }} alert-dismissible fade show" role="alert">
+
+        {% if label == 'success' %}
+        <span class="alert-inner--icon"><i class=""></i></span>
+
+        {% else %}
+        <span class="alert-inner--icon"><i class=""></i></span>
+
+        {% endif %}
+        <span class="alert-inner--icon"><strong>{{label | title}}</strong>{{message | raw}}</span>
+        </div>
+        {% endfor %}
+{% endfor %}

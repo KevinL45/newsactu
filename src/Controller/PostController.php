@@ -56,6 +56,11 @@ class PostController extends AbstractController
                 //code à exécuter
 
             }
+            $entityManager->persist($post);
+            $entityManager->flush();
+            $this->addFlash('success','Votre article est bien enrégistré');
+            return $this->redirectToRoute('default_home');
+
 
            }
         }
