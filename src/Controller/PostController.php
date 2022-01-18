@@ -51,6 +51,7 @@ class PostController extends AbstractController
             try {
 
                 $file->move($this->getParameter('uploads_dir'),$newFilename);
+                $post->setPhoto($newFilename);
 
             } catch (FileException $exception) {
                 //code à exécuter
