@@ -17,8 +17,8 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title',TextType::class,[
-                'label' => 'Titre de vos article',
-                'required'=> true  
+                'label' => 'Titre de l\article',
+                'required'=> true
             ])
             //->add('alias')
             ->add('content',TextareaType::class,[
