@@ -22,7 +22,7 @@ class DefaultController extends AbstractController
      */
     public function home()
     {
-        $posts = $this->entityManager->getRepository(Post::class);
+        $posts = $this->entityManager->getRepository(Post::class)->findBy(['deletedAt' => null]);
 
         return $this->render('default/home.html.twig',[
             'posts' => $posts

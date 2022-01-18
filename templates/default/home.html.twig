@@ -12,14 +12,24 @@
                 </div>
         </div>
 
-        <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+        <div class="row">
+        {% for post in posts %}
+        <div class="col-3 my-3 mx-2">
+                <div class="card" style="width: 18rem;">
+                <img src="" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">{{ post.title | length > 20 ? post.title | slice(0,20) ~ '...'}}</h5>
+                <p class="card-subtitle mb-2 text-muted">{{ post.subtitle | length > 30 ? post.subtitle | slice(0,30) ~ '...' : post.subtitle}}</p>
+                <p class="card-text">{{ post.content | length > 50 ? post.content | slice(0,50) ~ '...' : post.content | raw}}</p>
+                <a href="{{path('show_post', {'cat_alias':post.category.alias, 'post_alias':post.alias, 'id':post.id})}}" class="btn btn-primary">Voir</a>
+                </div>
+                </div>                
+        </div>
+
+        {% endfor %}
+        </div>
+
+
 
         {% endblock %}
 
