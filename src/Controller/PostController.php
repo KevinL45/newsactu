@@ -34,6 +34,7 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post)
         ->handleRequest($request);
 
+
         if($form->isSubmitted() && $form->isValid()){
             $post->setAlias($this->sluggerInterface->slug($form->get('title')->getData()));
             # La méthode getData() vous permet de récupérer les valeurs form et de les passer à l'objet $post

@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Post;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -11,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PostType extends AbstractType
 {
@@ -22,6 +26,37 @@ class PostType extends AbstractType
                 'required'=> true,
                 'attr' => [
                     'form' => 'form-control'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Ce champs ne peut être vide'
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'max' => 255,
+                        'minMessage' => 'Le nombre de caractères minimal est {{ limite }} (votre titre : {{value}})',
+                        'maxMessage' => 'Le nombre de caractères maximum est {{ limite }} (votre titre : {{value}})',
+
+                    ])
+                ]
+            ])
+            ->add('subtitle',TextType::class,[
+                'label' => 'Sous-titre de l\'article',
+                'required'=> true,
+                'attr' => [
+                    'form' => 'form-control'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Ce champs ne peut être vide'
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'max' => 255,
+                        'minMessage' => 'Le nombre de caractères minimal est {{ limite }} (votre sous-titre : {{value}})',
+                        'maxMessage' => 'Le nombre de caractères maximum est {{ limite }} (votre titre-titre : {{value}})',
+
+                    ])
                 ]
             ])
             //->add('alias')
@@ -31,7 +66,17 @@ class PostType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Ici le contenu de l\'article',
                     'form' => 'form-control'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Ce champs ne peut être vide'
+                    ])
                 ]
+            ])
+            ->add('category', EntityType::class,[
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'label' => 'Catégorie'
             ])
             ->add('photo', FileType::class,[
                 'label' => 'Photo de l\'article',
