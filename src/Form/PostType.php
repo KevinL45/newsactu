@@ -81,7 +81,8 @@ class PostType extends AbstractType
                 'data_class' => null,
                 'attr' => [
                     'class' => 'form-control',
-                ],
+                    'data-default-file' => $options['photo']
+                    ],
                 'constraints' => [
                     new Image([
                         'mimeTypes' => ['image/jpeg', 'image/png'],

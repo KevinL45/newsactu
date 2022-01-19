@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Commentary;
 use App\Entity\Post;
 use App\Form\PostType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\PostRemove;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,5 +91,72 @@ class PostController extends AbstractController
             'post' => $post,
             'commentaries' => $commentaries
         ]);
+    }
+
+    /**
+     * @Route("/admin/modifier-un-article/{id}", name="update_post", methods={"GET|POST"})
+     * @param Post $post
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
+     */
+    public function updatePost(Post $post, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $originalPhoto = $post->getPhoto() ?? "Pas de photo";
+
+        $form = $this->createForm(PostType::class,$post,[
+            'photo' => $originalPhoto
+        ])->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $post->setUpdatedAt(new DateTime());
+            $post->setAlias($this->sluggerInterface->slug($form->get('title')->getData()));
+
+            $file = $form->get('photo')->getData();
+
+            if($file){
+                $extension = '.'.$file->guessExtension();
+                $originalFilename = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
+                $safeFilename = $this->sluggerInterface->slug($originalFilename);
+                $newFilename = $safeFilename.'_'.uniqid().$extension;
+            
+            try {
+
+                $file->move($this->getParameter('uploads_dir'),$newFilename);
+                $post->setPhoto($newFilename);
+
+            } catch (FileException $exception) {
+                //code à exécuter
+
+            }
+            $entityManager->persist($post);
+            $entityManager->flush();
+            $this->addFlash('success','Votre article est bien modifié');
+            return $this->redirectToRoute('show_dashboard');
+           }
+
+        }
+
+        return $this->render("post/form_post.html.twing",[
+            'form' => $form->createView(),
+            'post' => $post
+        ]);
+    }
+     /**
+     * @Route("/admin/supprimer-un-article/{id}", name="delete_post", methods={"GET"})
+     * @param Post $post
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function softDeletedPost(Post $post, EntityManagerInterface $entityManager) : Response
+    {
+        $post->setDeletedAt(new DateTime());
+        $entityManager->persist($post);
+        $entityManager->flush();
+
+        $this->addFlash('success','Votre article est bien supprimé');
+        return $this->redirectToRoute('show_dashboard');
+
     }
 }

@@ -3,7 +3,12 @@
 {% block content %}
 
 <div class="row">
+{% if post is defined %} 
+                <h1 class="col-12 text-center my-2">Créer</h1>
+                {% else %}
                 <h1 class="col-12 text-center my-2">Ajouter un article</h1>
+{% endif %}
+
 </div>
 
 {# 1er façon : affichage du foormulaire #}
@@ -17,6 +22,13 @@
     {{form_row(form.content)}}
     {{form_row(form.category)}}
     {{form_row(form.photo)}}
-    {{form_row(form.submit)}} 
-    {{form_end(form)}}     
+    {% if post is defined %} 
+    <button class='d-block col-2 mx-auto btn btn-warning'>Modifier</button> 
+        {% else %}
+    <button class='d-block col-2 mx-auto btn btn-warning'>Publier</button> 
+    {% endif %}
+
+    {{form_end(form)}}  
+
+  
 {% endblock %}
