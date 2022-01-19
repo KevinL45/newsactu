@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CommentaryType extends AbstractType
 {
@@ -18,6 +19,9 @@ class CommentaryType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Ecrivez votre commentaire',
+                ],
+                'constraints' => [
+                    new NotBlank()
                 ]
             ])
             ->add('submit', SubmitType::class, [
