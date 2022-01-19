@@ -13,7 +13,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-center text-muted">Crée le : {{post.createdAt | date('d/m/Y')}} | Par : </li>
             </ul>
-            <img class="img-custom" src="" alt="">
+            <img class="img-custom" src="{{ asset('uploads/' ~ post.photo) }}" alt="">
             <div class="card-body">
                 <p class="card-text my-4 col-10 mx-auto">{{post.content | raw}}</p>
             </div>

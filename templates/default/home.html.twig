@@ -16,7 +16,7 @@
         {% for post in posts %}
         <div class="col-3 my-3 mx-2">
                 <div class="card" style="width: 18rem;">
-                <img src="" class="card-img-top" alt="...">
+                <img src="{{ asset('uploads/' ~ post.photo) }}" class="card-img-top" alt="...">
                 <div class="card-body">
                         <h5 class="card-title">{{ post.title | length > 20 ? post.title | slice(0,20) ~ '...'}}</h5>
                         <p class="card-subtitle mb-2 text-muted">{{ post.subtitle | length > 30 ? post.subtitle | slice(0,30) ~ '...' : post.subtitle}}</p>
