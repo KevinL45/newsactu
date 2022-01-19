@@ -90,12 +90,6 @@ class PostType extends AbstractType
                     ])
                 ],
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Publier',
-                'attr' => [
-                    'class' => 'd-block col-2 mx-auto btn btn-warning'
-                ]
-            ])
         ;
     }
 
@@ -105,6 +99,7 @@ class PostType extends AbstractType
             # Cette paire permet de représenter l'entité Post pour le FormBuilder.
             'data_class' => Post::class,
             'allow_file_upload' => true,
+            'photo' => null
         ]);
     }
 }

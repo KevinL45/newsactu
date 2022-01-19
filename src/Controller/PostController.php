@@ -102,43 +102,50 @@ class PostController extends AbstractController
      */
     public function updatePost(Post $post, EntityManagerInterface $entityManager, Request $request): Response
     {
-        $originalPhoto = $post->getPhoto() ?? "Pas de photo";
+        $originalPhoto = $post->getPhoto() ?? "pas de photo";
 
-        $form = $this->createForm(PostType::class,$post,[
+        $form = $this->createForm(PostType::class, $post, [
             'photo' => $originalPhoto
         ])->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $post->setUpdatedAt(new DateTime());
-            $post->setAlias($this->sluggerInterface->slug($form->get('title')->getData()));
+            $post->setAlias($this->sluggerInterface->slug($post->getTitle()));
 
+            /** @var UploadedFile $file */
             $file = $form->get('photo')->getData();
 
-            if($file){
-                $extension = '.'.$file->guessExtension();
-                $originalFilename = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
+            if($file) {
+                $extension = '.' . $file->guessExtension();
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $this->sluggerInterface->slug($originalFilename);
-                $newFilename = $safeFilename.'_'.uniqid().$extension;
-            
-            try {
+                # $safeFilename = $post->getAlias();
+                $newFilename = $safeFilename . '_' . uniqid() . $extension;
 
-                $file->move($this->getParameter('uploads_dir'),$newFilename);
-                $post->setPhoto($newFilename);
+                try {
+                    # On a paramétré le chemin 'uploads_dir' dans le fichier config/services.yaml
+                    $file->move($this->getParameter('uploads_dir'), $newFilename);
 
-            } catch (FileException $exception) {
-                //code à exécuter
+                    $post->setPhoto($newFilename);
 
-            }
+                } catch (FileException $exception){
+                    // code à exécuter si une erreur est attrapée.
+                }
+            } else {
+                $post->setPhoto($originalPhoto);
+            }# end if($file)
+
             $entityManager->persist($post);
             $entityManager->flush();
-            $this->addFlash('success','Votre article est bien modifié');
+
+            $this->addFlash('success', "L'article". $post->getTitle() ." à bien été modifié !");
+
             return $this->redirectToRoute('show_dashboard');
-           }
 
         }
 
-        return $this->render("post/form_post.html.twing",[
+        return $this->render('post/form.html.twig', [
             'form' => $form->createView(),
             'post' => $post
         ]);
