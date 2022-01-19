@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentary;
 use App\Entity\Post;
 use App\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -80,10 +81,13 @@ class PostController extends AbstractController
     * @param  Post $post
     * @return Response
     */
-    public function showPost(Post $post):Response
+    public function showPost(Post $post, EntityManagerInterface $entityManager):Response
     {
+        $commentaries = $entityManager->getRepository(Commentary::class)->findBy(['post' => $post->getId()]);
+
         return $this->render('post/show.html.twig',[
-            'post' => $post
+            'post' => $post,
+            'commentaries' => $commentaries
         ]);
     }
 }

@@ -29,5 +29,20 @@
 </div>
 
 {{ render( url('add_commentary',{'id' : post.id}) )}}
+<h3>Espace commentaires</h3>
+{% if commentaries is not null %}
+    
+
+<div class="row">
+        <div class="col-5 mx-auto">
+            {% for commentary in commentaries %}
+                <div class="bg-light shadow">
+                <p>Créé le {{commentary.createdAt | date('d/m/Y')}} | Par :</p>
+                <p>{{commentary.comment}}</p>
+                </div>
+            {% endfor %}
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}
