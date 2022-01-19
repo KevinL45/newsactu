@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentaryController extends AbstractController
 {
     /**
-     * @Route("/ajouter-un-commentaire?post_id{id}=", name="add_commentary" , methods={"GET|POST"})
+     * @Route("/ajouter-un-commentaire?post_id={id}", name="add_commentary" , methods={"GET|POST"})
      * @param Request $request
      * @param  EntityManagerInterface $entityManager
      * @return Response
@@ -26,7 +26,18 @@ class CommentaryController extends AbstractController
       $form = $this->createForm(CommentaryType::class,$commentary)->handleRequest($request);
 
       if($form->isSubmitted() && $form->isValid()){
+            $commentary->setPost($post);
 
+            $entityManager->persist($commentary);
+            $entityManager->flush();
+            
+            $this->addFlash("success","Vous avez ajouté un commentaire");
+            
+            return $this->redirectToRoute('show_post',[
+                'cat_alias' => $post->getCategory()->getAlias(),
+                'post' => $post->getAlias(),
+                'id' => $post->getId()
+            ]);
       }
 
       return $this->render('renderer/form_commentary.html.twig',[

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentaryRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,7 +34,7 @@ class Commentary
     private $deleteAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $comment;
 
@@ -42,6 +43,12 @@ class Commentary
      * @ORM\JoinColumn(nullable=false)
      */
     private $post;
+
+    public function __construct()
+    {
+        $this->setCreatedAt(new DateTime());
+        $this->setUpdatedAt(new DateTime());
+    }
 
     public function getId(): ?int
     {
@@ -89,7 +96,7 @@ class Commentary
         return $this->comment;
     }
 
-    public function setComments(string $comment): self
+    public function setComment(string $comment): self
     {
         $this->comment = $comment;
 

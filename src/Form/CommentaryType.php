@@ -18,8 +18,7 @@ class CommentaryType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Ecrivez votre commentaire',
-                ],
-                'label_html' => true
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Commenter',
