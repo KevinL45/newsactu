@@ -20,7 +20,7 @@ class DashboardController extends AbstractController
     public function showDashboard(EntityManagerInterface $entityManager)
     {
         $posts = $entityManager->getRepository(Post::class)->findBy(['deletedAt' => null]);
-        $categories = $entityManager->getRepository(Category::class)->findBy(['deletedAt' => null]);
+        $categories = $entityManager->getRepository(Category::class)->findAll();
         $users = $entityManager->getRepository(User::class)->findBy(['deletedAt' => null]);
 
         return $this->render('dashboard/show_dashboard.html.twig',[

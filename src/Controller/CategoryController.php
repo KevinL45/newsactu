@@ -79,7 +79,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/admin/supprimer-une-categorie/{id}", name="delete_category", methods={"GET"})
+     * @Route("/admin/supprimer-une-categorie/{id}", name="soft_delete_category", methods={"GET"})
      * @param Category $category
      * @param EntityManagerInterface $entityManager
      * @return Response
@@ -94,4 +94,40 @@ class CategoryController extends AbstractController
         return $this->redirectToRoute('show_dashboard');
 
     }
+
+     /**
+     * @Route("/admin/enlever-une-categorie/{id}", name="hard_delete_category", methods={"GET"})
+     * @param Category $category
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function hardDeletedCategory(Category $category, EntityManagerInterface $entityManager) : Response
+    {
+        $category->setDeletedAt(new DateTime());
+        $entityManager->remove($category);
+        $entityManager->flush();
+
+        $this->addFlash('success','Votre article est bien supprimé');
+        return $this->redirectToRoute('show_dashboard');
+
+    }
+
+     /**
+     * @Route("/admin/restaurer-une-categorie/{id}", name="restore_category", methods={"GET"})
+     * @param Category $category
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function restoreCategory(Category $category, EntityManagerInterface $entityManager) : Response
+    {
+        $category->setDeletedAt(new DateTime());
+        $entityManager->remove($category);
+        $entityManager->flush();
+
+        $this->addFlash('success','Votre article est bien supprimé');
+        return $this->redirectToRoute('show_dashboard');
+
+    }
+
+    
 }
