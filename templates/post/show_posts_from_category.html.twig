@@ -2,11 +2,11 @@
 
 {% block content %}
 
-    <h1 class="text-center mt-3">Categorie{{category.name}}</h1>
+    <h1 class="text-center mt-3">Categorie : {{category.name}}</h1>
 
     {% if posts is not empty %}
 
-    <div class="col-9 mx-auto mb-5">
+    <div class="row">
     
     {% for post in posts %}
 
