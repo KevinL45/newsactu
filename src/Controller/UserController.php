@@ -27,7 +27,7 @@ class UserController extends AbstractController
     {
         # Instanciation d'un nouvelle utilisateur
         $user = new User();
-        $user->setRoles(["ROLES_USER"]);
+        $user->setRoles(["ROLE_USER"]);
         $user->setCreatedAt(new DateTime());
         $user->setUpdatedAt(new DateTime());
 
