@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,6 +27,18 @@ class DefaultController extends AbstractController
 
         return $this->render('default/home.html.twig',[
             'posts' => $posts
+        ]);
+    }
+    /**
+     * @Route("/categories", name="render_categories_in_nav", methods={"GET"})
+     * @return Response
+     */
+    public function renderCategoriesInNav() : Response
+    {
+        $categories = $this->entityManager->getRepository(Category ::class)->findBy(['deletedAt' => null]);
+
+        return $this->render("renderer/nav_categories.html.twig",[
+            'categories' => $categories
         ]);
     }
 }
