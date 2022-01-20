@@ -1,0 +1,31 @@
+{% extends "layouts/base.html.twig" %}
+
+{% block content %}
+
+    <h1 class="text-center mt-3">Categorie{{category.name}}</h1>
+
+    {% if posts is not empty %}
+
+    <div class="col-9 mx-auto mb-5">
+    
+    {% for post in posts %}
+
+    <div class="col-3 my-3 mx-2">
+                <div class="card" style="width: 18rem;">
+                <img src="{{ asset('uploads/' ~ post.photo) }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                        <h5 class="card-title">{{ post.title | length > 20 ? post.title | slice(0,20) ~ '...'}}</h5>
+                        <p class="card-subtitle mb-2 text-muted">{{ post.subtitle | length > 30 ? post.subtitle | slice(0,30) ~ '...' : post.subtitle}}</p>
+                        <p class="card-text">{{ post.content | length > 50 ? post.content | slice(0,50) ~ '...' : post.content | raw}}</p>
+                        <a href="{{path('show_post', {'cat_alias':post.category.alias, 'post':post.alias, 'id':post.id})}}" class="btn btn-primary">Voir l'article</a>
+                </div>
+                </div>                
+        </div>
+        
+    {% endfor %}
+    
+    </div>
+        
+    {% endif %}
+    
+{% endblock %}

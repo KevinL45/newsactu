@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Commentary;
 use App\Entity\Post;
 use App\Form\PostType;
@@ -165,5 +166,20 @@ class PostController extends AbstractController
         $this->addFlash('success','Votre article est bien supprimé');
         return $this->redirectToRoute('show_dashboard');
 
+    }
+     /**
+     * @Route("/voir/categorie/{alias}", name="show_posts_from_category", methods={"GET"})
+     * @param Category $category
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function showPostsFromCategry(Category $category, EntityManagerInterface $entityManager): Response
+    {
+        $posts = $entityManager->getRepository(Post::class)->findBy(['category'=>$category->getId()]);
+
+        return $this->render('post/show_posts_from_category.html.twig',[
+            'posts' => $posts,
+            'category' => $category
+        ]);
     }
 }

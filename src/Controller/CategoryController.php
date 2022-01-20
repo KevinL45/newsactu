@@ -90,7 +90,7 @@ class CategoryController extends AbstractController
         $entityManager->persist($category);
         $entityManager->flush();
 
-        $this->addFlash('success','Votre article est bien supprimé');
+        $this->addFlash('success','Votre article est bien archivé');
         return $this->redirectToRoute('show_dashboard');
 
     }
@@ -124,7 +124,7 @@ class CategoryController extends AbstractController
         $entityManager->remove($category);
         $entityManager->flush();
 
-        $this->addFlash('success','Votre article est bien supprimé');
+        $this->addFlash('success','Votre article est bien restaurée');
         return $this->redirectToRoute('show_dashboard');
 
     }

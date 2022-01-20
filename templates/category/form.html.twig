@@ -2,6 +2,17 @@
 
 {% block content %}
 
+<div class="row">
+        <div class="col-12 mx-auto">
+            {% if category is defined %}
+                <h1 class="text-center">Modifier une categorie</h1>
+            {% else %}
+                <h1 class="text-center">Ajouter une categorie</h1>
+            {% endif %}
+
+        </div>
+    </div>
+
 
     <div class="row">
         <div class="col-8 mx-auto">
