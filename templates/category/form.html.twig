@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-8 mx-auto">
+
+            {{ form_start(form, {'attr': {novalidate: 'novalidate'}} ) }} {# <form class="" action="" method=""> #}
+            {{ form_row(form.name) }}
+
+            {% if category is defined %}
+                <button type="submit" class="d-block col-2 mx-auto btn btn-warning">Modifier</button>
+            {% else %}
+                <button type="submit" class="d-block col-2 mx-auto btn btn-success">Publier</button>
+            {% endif %}                    {{ form_end(form) }} 
+
+        </div>
+    </div>
+    
+{% endblock %}
+

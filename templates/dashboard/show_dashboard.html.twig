@@ -61,8 +61,8 @@
                             <td>{{ category.id }}</td>
                             <td>{{ category.name }}</td>
                             <td>
-                                <a href="#" class="btn btn-info"><i class="fa fa-edit"></i></a> |
-                                <a href="#" class="btn btn-danger" onclick="return confirm('ATTENTION : Voulez-vous vraiment supprimer cette catégorie ?')"><i class="fa fa-trash"></i></a>
+                                <a href="{{ path('update_category', {'id': category.id}) }}" class="btn btn-info"><i class="fa fa-edit"></i></a> |
+                                <a href="{{ path('delete_category', {'id': category.id}) }}" class="btn btn-danger" onclick="return confirm('ATTENTION : Voulez-vous vraiment supprimer cette catégorie ?')"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     {% endfor %}
