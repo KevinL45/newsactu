@@ -26,7 +26,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/admin/creer-un-article", name="post_create_post", methods={"GET|POST"})
+     * @Route("/admin/creer-un-article", name="create_post", methods={"GET|POST"})
      * @param Request $request
      * @param  EntityManagerInterface $entityManager
      * @return Response
