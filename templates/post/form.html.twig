@@ -23,21 +23,16 @@
             {{ form_start(form, {'attr': {novalidate: 'novalidate'}} ) }} {# <form class="" action="" method=""> #}
 
                 {# form_row() représente votre input déclaré dans le PostType #}
-            <div class="mb-3">
                 {{ form_row(form.title) }}
-            </div>
-            <div class="mb-3">
+           
                 {{ form_row(form.subtitle) }}
-            </div>
-            <div class="mb-3">
+           
                 {{ form_row(form.content) }}
-            </div>
-            <div class="mb-3">
+            
                 {{ form_row(form.category) }}
-            </div>
-            <div class="mb-3">
+            
                 {{ form_row(form.photo) }}
-            </div>
+            
 
             {% if post is defined %}
                 <button type="submit" class="d-block col-2 mx-auto btn btn-warning">Modifier</button>

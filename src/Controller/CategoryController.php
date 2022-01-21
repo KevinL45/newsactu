@@ -120,7 +120,7 @@ class CategoryController extends AbstractController
      */
     public function restoreCategory(Category $category, EntityManagerInterface $entityManager) : Response
     {
-        $category->setDeletedAt(new DateTime());
+        $category->setDeletedAt(null);
         $entityManager->remove($category);
         $entityManager->flush();
 
