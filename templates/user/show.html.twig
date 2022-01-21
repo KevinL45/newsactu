@@ -1,5 +1,87 @@
 {% extends "layouts/base.html.twig" %}
 
 {% block content %}
-    
+    <div class="row">
+        <div class="col my-4">
+            <h2 class="text-center">Mes articles</h2>
+        </div>
+    </div>
+
+<div class="row my-5">
+    <div class="col-12 mx-auto">
+        {% if posts is not empty %}
+            
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Titre</th>
+                        <th>Date de création</th>
+                        <th>Catégorie</th>
+                        <th>Commentaires liés</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                
+                {% for post in posts %}
+                    <tr>
+                        <td>
+                            {{ post.title }}
+                        </td>
+                        <td>
+                            {{ post.createdAt | date('d/m/Y h:i:s') }}
+                        </td>
+                        <td>
+                            {{ post.category.name }}
+                        </td>
+                        <td>
+                            {{ post.commentaries | length }}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+
+    <hr>
+<div class="row my-4">
+    <div class="col-12">
+        <h2 class="text-center">Mes commentaires</h2>
+    </div>
+</div>
+    <div class="row">
+        {% if commentaries is not empty %}
+            <table class="table">
+                <thead class="table-dark">
+                <tr>
+                    <th>Contenu</th>
+                    <th>Date de création</th>
+                    <th>Article lié</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for commentary in commentaries %}
+                    <tr>
+                        <td>
+                            {{ commentary.comment }}
+                        </td>
+                        <td>
+                            {{ commentary.createdAt | date('d/m/Y h:i:s') }}
+                        </td>
+                        <td>
+                            {{ commentary.post.title }}
+                        </td>
+                        <td>
+                            <a href="" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
 {% endblock %}
