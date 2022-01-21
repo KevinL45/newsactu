@@ -1,11 +1,32 @@
 {% extends "layouts/base.html.twig" %}
 
 {% block content %}
+
+<div class="row">
+    <div class="col my-4">
+        <h1 class="text-center">Mon espace personnel</h1>
+    </div>
+</div>
+
+<div class="row">
+    {% include 'components/_flashe.html.twig' %}
+</div>
+
+<div class="row">
+    <div class="col-3 mx-auto">
+        <a href="#" class="btn btn-danger shadow">
+            Changer mon mot de passe
+        </a>
+    </div>
+</div>
+
     <div class="row">
         <div class="col my-4">
             <h2 class="text-center">Mes articles</h2>
         </div>
     </div>
+
+    
 
 <div class="row my-5">
     <div class="col-12 mx-auto">
