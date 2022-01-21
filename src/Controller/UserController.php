@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentary;
+use App\Entity\Post;
 use App\Entity\User;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -83,6 +85,21 @@ class UserController extends AbstractController
             'form'=>$form->createView()
         ]);
 
+
+    }
+
+    /**
+     * @Route("/user/mon-espace-perso", name="show_profile", methods={"GET"})
+     */
+    public function showProfile(EntityManagerInterface $entityManager):Response
+    {
+        $posts = $entityManager->getRepository(Post::class)->findBy(['author'=>$this->getUser()]);
+        $commentaries = $entityManager->getRepository(Commentary::class)->findBy(['author'=>$this->getUser()]);
+
+        return $this->render('user/show.html.twig',[
+            'commentaries' => $commentaries,
+            'posts' => $posts
+        ]);
 
     }
 }

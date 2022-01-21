@@ -47,7 +47,7 @@ class Commentary
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaries")
      */
-    private $user;
+    private $author;
 
     public function __construct()
     {
@@ -120,14 +120,14 @@ class Commentary
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getAuthor(): ?User
     {
-        return $this->user;
+        return $this->author;
     }
 
-    public function setUser(?User $user): self
+    public function setAuthor(?User $author): self
     {
-        $this->user = $user;
+        $this->author = $author;
 
         return $this;
     }
