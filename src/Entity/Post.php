@@ -70,6 +70,11 @@ class Post
      */
     private $deletedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
+     */
+    private $author;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());
@@ -217,6 +222,22 @@ class Post
     public function setDeletedAt(\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param User|UserInterface|null $author
+     * @return $this
+     */
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

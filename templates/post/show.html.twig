@@ -17,7 +17,7 @@
                 <p class="h4 text-center mb-3 text-secondary">{{post.subtitle}}</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center text-muted">Crée le : {{post.createdAt | date('d/m/Y')}} | Par : </li>
+                <li class="list-group-item text-center text-muted">Crée le : {{post.createdAt | date('d/m/Y')}} | Par : {{post.author.firstname}} {{post.author.lastname}} </li>
             </ul>
             <img class="img-custom" src="{{ asset('uploads/' ~ post.photo) }}" alt="">
             <div class="card-body">
@@ -37,7 +37,7 @@
         <div class="col-5 mx-auto">
             {% for commentary in commentaries %}
                 <div class="bg-light shadow">
-                <p>Créé le {{commentary.createdAt | date('d/m/Y')}} | Par :</p>
+                <p>Créé le {{commentary.createdAt | date('d/m/Y')}} | Par : {{commentary.user.firstname}} {{commentary.user.lastname}}</p>
                 <p>{{commentary.comment}}</p>
                 </div>
             {% endfor %}

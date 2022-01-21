@@ -40,6 +40,7 @@ class CommentaryController extends AbstractController
       if($form->isSubmitted() && $form->isValid()){
 
             $commentary->setPost($post);
+            $commentary->setUser($this->getUser());
 
             $entityManager->persist($commentary);
             $entityManager->flush();

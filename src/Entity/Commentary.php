@@ -44,6 +44,11 @@ class Commentary
      */
     private $post;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaries")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());
@@ -111,6 +116,18 @@ class Commentary
     public function setPost(?Post $post): self
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

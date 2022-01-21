@@ -48,6 +48,8 @@ class PostController extends AbstractController
             # => En faite on "hydrate" notre objet Post des la ligne 26, donc pas nécceassaire de getData()ici
             //$post = $form->getData();
 
+            $post->setAuthor($this->getUser());
+
             $file = $form->get('photo')->getData();
 
             if($file){
