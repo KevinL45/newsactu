@@ -18,6 +18,7 @@
                         <th>Date de création</th>
                         <th>Catégorie</th>
                         <th>Commentaires liés</th>
+                        <th></th>
 
                     </tr>
                 </thead>
@@ -37,6 +38,10 @@
                         <td>
                             {{ post.commentaries | length }}
                         </td>
+                        <td>
+                        <a href="{{path('show_post', {'cat_alias':post.category.alias, 'post':post.alias, 'id':post.id})}}" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                        </td>
+                        
                     </tr>
                 {% endfor %}
 
