@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commentary;
 use App\Entity\Post;
 use App\Entity\User;
+use App\Form\UserType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,39 +35,7 @@ class UserController extends AbstractController
         $user->setUpdatedAt(new DateTime());
 
         #Création d'un formulaire
-        $form = $this->createFormBuilder($user)
-        ->add('firstname',TextType::class,[
-            'attr' => [
-                'placeholder' => 'Prenom',
-                'class' => 'form_control'
-            ]
-        ])
-        ->add('lastname',TextType::class,[
-            'attr' => [
-                'placeholder' => 'Nom',
-                'class' => 'form_control'
-            ]
-        ])
-        ->add('email',TextType::class,[
-            'attr' => [
-                'placeholder' => 'exemple@hotmail.fr',
-                'class' => 'form_control'
-            ]
-        ])
-        ->add('password',PasswordType::class,[
-            'attr' => [
-                'placeholder' => 'Mot de passe',
-                'class' => 'form_control'
-            ]
-        ])
-        ->add('submit',SubmitType::class,[
-            'label'=>'S\'inscrire',
-            'attr' => [
-                'class' => 'd-block col-2 mx-auto btn btn-warning'
-            ]
-        ])->getForm();
-
-        $form->handleRequest($request);
+        $form = $this->createForm(UserType::class,$user)->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
 

@@ -30,7 +30,7 @@ class DefaultController extends AbstractController
         ]);
     }
     /**
-     * @Route("/categories", name="render_categories_in_nav", methods={"GET"})
+     * @Route("/nav/categories", name="render_categories_in_nav", methods={"GET"})
      * @return Response
      */
     public function renderCategoriesInNav() : Response
@@ -38,6 +38,19 @@ class DefaultController extends AbstractController
         $categories = $this->entityManager->getRepository(Category ::class)->findBy(['deletedAt' => null]);
 
         return $this->render("renderer/nav_categories.html.twig",[
+            'categories' => $categories
+        ]);
+    }
+
+    /**
+     * @Route("/footer/categories", name="render_categories_in_footer", methods={"GET"})
+     * @return Response
+     */
+    public function renderCategoriesInFooter() : Response
+    {
+        $categories = $this->entityManager->getRepository(Category ::class)->findBy(['deletedAt' => null]);
+
+        return $this->render("renderer/footer_categories.html.twig",[
             'categories' => $categories
         ]);
     }
