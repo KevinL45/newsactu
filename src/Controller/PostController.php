@@ -81,7 +81,7 @@ class PostController extends AbstractController
         ]);
     }
     /**
-    * @Route("/admin/voir/{cat_alias}/{post}_{id}", name="show_post", methods={"GET"})
+    * @Route("/voir/{cat_alias}/{post}_{id}", name="show_post", methods={"GET"})
     * @ParamConverter("post", options={"mapping": {"post" : "alias"} })
     * @param  Post $post
     * @return Response

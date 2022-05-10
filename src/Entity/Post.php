@@ -75,11 +75,17 @@ class Post
      */
     private $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Favoris::class, mappedBy="post")
+     */
+    private $favoris;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());
         $this->setUpdatedAt(new DateTime());
         $this->commentaries = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
 
     }
 
@@ -238,6 +244,36 @@ class Post
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Favoris[]
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(Favoris $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris[] = $favori;
+            $favori->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(Favoris $favori): self
+    {
+        if ($this->favoris->removeElement($favori)) {
+            // set the owning side to null (unless already changed)
+            if ($favori->getPost() === $this) {
+                $favori->setPost(null);
+            }
+        }
 
         return $this;
     }
