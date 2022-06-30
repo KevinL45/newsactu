@@ -26,7 +26,9 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager):Response
+    public function register(Request $request, 
+    UserPasswordHasherInterface $userPasswordHasher, 
+    EntityManagerInterface $entityManager):Response
     {
         # Instanciation d'un nouvelle utilisateur
         $user = new User();
