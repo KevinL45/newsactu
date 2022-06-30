@@ -27,8 +27,11 @@
 
     </div>
 </div>
+{% if app.user %}
 
 {{ render( url('add_commentary',{'id' : post.id}) )}}
+
+{% endif %}
 <h3>Espace commentaires</h3>
 {% if commentaries is not null %}
     
