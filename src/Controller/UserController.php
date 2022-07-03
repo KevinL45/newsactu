@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentary;
+use App\Entity\Favoris;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\UserType;
@@ -64,12 +65,12 @@ class UserController extends AbstractController
      */
     public function showProfile(EntityManagerInterface $entityManager):Response
     {
-        $posts = $entityManager->getRepository(Post::class)->findBy(['author'=>$this->getUser()]);
+        $favoris = $entityManager->getRepository(Favoris::class)->findBy(['user'=>$this->getUser()]);
         $commentaries = $entityManager->getRepository(Commentary::class)->findBy(['author'=>$this->getUser()]);
 
         return $this->render('user/show.html.twig',[
             'commentaries' => $commentaries,
-            'posts' => $posts
+            'favoris' => $favoris
         ]);
 
     }

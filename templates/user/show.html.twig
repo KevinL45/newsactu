@@ -12,17 +12,9 @@
     {% include 'components/_flashe.html.twig' %}
 </div>
 
-<div class="row">
-    <div class="col-3 mx-auto">
-        <a href="#" class="btn btn-danger shadow">
-            Changer mon mot de passe
-        </a>
-    </div>
-</div>
-
     <div class="row">
         <div class="col my-4">
-            <h2 class="text-center">Mes articles</h2>
+            <h2 class="text-center">Mes Favoris</h2>
         </div>
     </div>
 
@@ -30,7 +22,7 @@
 
 <div class="row my-5">
     <div class="col-12 mx-auto">
-        {% if posts is not empty %}
+        {% if favoris is not empty %}
             
             <table class="table">
                 <thead class="table-dark">
@@ -38,29 +30,25 @@
                         <th>Titre</th>
                         <th>Date de création</th>
                         <th>Catégorie</th>
-                        <th>Commentaires liés</th>
                         <th></th>
 
                     </tr>
                 </thead>
                 <tbody>
                 
-                {% for post in posts %}
+                {% for favori in favoris %}
                     <tr>
                         <td>
-                            {{ post.title }}
+                            {{ favori.post.title }}
                         </td>
                         <td>
-                            {{ post.createdAt | date('d/m/Y h:i:s') }}
+                            {{ favori.post.createdAt | date('d/m/Y h:i:s') }}
                         </td>
                         <td>
-                            {{ post.category.name }}
+                            {{ favori.post.category.name }}
                         </td>
                         <td>
-                            {{ post.commentaries | length }}
-                        </td>
-                        <td>
-                        <a href="{{path('show_post', {'cat_alias':post.category.alias, 'post':post.alias, 'id':post.id})}}" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                        <a href="{{path('show_post', {'cat_alias':favori.post.category.alias, 'post':favori.post.alias, 'id':favori.post.id})}}" class="btn btn-info"><i class="fa fa-eye"></i></a>
                         </td>
                         
                     </tr>
@@ -72,7 +60,6 @@
     </div>
 </div>
 
-    <hr>
 <div class="row my-4">
     <div class="col-12">
         <h2 class="text-center">Mes commentaires</h2>
