@@ -7,24 +7,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{path('default_home')}}">Accueil</a>
         </li>
-        {% if not app.user %}
-        
+        {% if app.user %}
         <li class="nav-item">
-          <a class="nav-link" href="{{path('user_register')}}">S'inscrire</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{path('app_login')}}">Se connecter</a>
-        </li>  
-        {% else %}
-        
-        <li class="nav-item">
-          <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
-        </li> 
-        <li class="nav-item">
-          <a class="nav-link" href="{{path('show_profile')}}">Espace Perso</a>
+          <a class="nav-link" href="{{path('show_profile')}}">Espace Personel</a>
         </li> 
         {% endif %}
         {# Pour verifier le rôle d'un user en Twig, #}
@@ -42,13 +30,21 @@
           </ul>
         </li>
         {% endif %}
+        
+     {% if not app.user %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('user_register')}}">S'inscrire</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-success" class="nav-link" href="{{path('app_login')}}">Se connecter</a>
+        </li>  
+        {% else %}
+        <li class="nav-item">
+          <a class="btn btn-danger" href="{{path('app_logout')}}">Déconnexion</a>
+        </li> 
+        {% endif %}
       </ul>
     </div>
   </div>
-  {% if app.user %}
-        <div class="mb-3">
-            Vous êtes connecter {{ app.user.firstname }}
-        </div>
-    {% endif %}
 </nav>
 

@@ -34,6 +34,7 @@
                     <td>{{ post.createdAt | date('d/m/Y') }}</td>
                     <td>{{ post.updatedAt | date('d/m/Y') }}</td>
                     <td>
+                        <a href="{{path('show_post', {'cat_alias':post.category.alias, 'post':post.alias, 'id':post.id})}}" class="btn btn-success"><i class="fas fa-eye"></i></a> |
                         <a href="{{ path('update_post', {'id': post.id}) }}" class="btn btn-info"><i class="fa fa-edit"></i></a> |
                         <a href="{{ path('delete_post', {'id': post.id}) }}" class="btn btn-danger" onclick="return confirm('ATTENTION : Voulez-vous vraiment supprimer cet article ?')"><i class="fa fa-trash"></i></a>
                     </td>
@@ -61,6 +62,7 @@
                             <td>{{ category.id }}</td>
                             <td>{{ category.name }}</td>
                             <td>
+                                <a href="{{ path('show_posts_from_category', {'alias': category.alias}) }}"class="btn btn-success"><i class="fas fa-eye"></i></a> |
                                 {% if category.deletedAt is null %}
                                 <a href="{{ path('update_category', {'id': category.id}) }}" class="btn btn-info"><i class="fa fa-edit"></i></a> |
                                 {% else %}
